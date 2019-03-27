@@ -10,33 +10,38 @@ GAME RULES:
 */
 
 
-var scores, roundScore, activePlayer;
-
+var scores, roundScore, activePlayer, gamePlaying;
+gamePlaying = true;
 newGame();
 
 function btn(){
-    var dice = Math.floor((Math.random() * 6) + 1);
-    var diceDOM = document.getElementById('dice')
-    diceDOM.style.display = 'block';
-    diceDOM.src = `dice-${dice}.png`;
+    if(gamePlaying){
+        var dice = Math.floor((Math.random() * 6) + 1);
+        var diceDOM = document.getElementById('dice')
+        diceDOM.style.display = 'block';
+        diceDOM.src = `dice-${dice}.png`;
     
-    if(dice > 1){
+        if(dice > 1){
         roundScore += dice;
         document.getElementById(`current-${activePlayer}`).textContent = roundScore;    }else{
         nextPlayer()   
+        }
     }
 }
 
 function hld(){
-    document.getElementById(`score-${activePlayer}`).textContent = scores[activePlayer] += roundScore;
-    document.getElementById('dice').style.display = 'none';
-    if(scores[activePlayer] >= 100){
-     document.getElementById(`name-${activePlayer}`).textContent = ('Winner!!!');       
-     document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
-     document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
+    if(gamePlaying){
+        document.getElementById(`score-${activePlayer}`).textContent = scores[activePlayer] += roundScore;
+        document.getElementById('dice').style.display = 'none';
+        if(scores[activePlayer] >= 100){
+        document.getElementById(`name-${activePlayer}`).textContent = ('Winner!!!');       
+        document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
+        document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
+        gamePlaying = false;
 
-    }else{
-    nextPlayer();
+        }else{
+        nextPlayer();
+        }
     }
 }
 
@@ -50,6 +55,7 @@ function nextPlayer(){
 }
 
 function newGame(){
+    gamePlaying = true;
     scores = [0, 0];
     roundScore = 0;
     activePlayer = 0; 
