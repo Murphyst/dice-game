@@ -13,7 +13,10 @@ function btn(){
         document.getElementById('dice1').src = `dice-${dice1}.png`;
         var dices = dice + dice1;
         switch(true){
-            case(dices === 12): nextPlayer();
+            case(dices === 12): 
+            document.getElementById(`score-${activePlayer}`).textContent = 0;
+            nextPlayer();
+
             break;
             case(dice === 1): nextPlayer();
             break;
@@ -21,8 +24,8 @@ function btn(){
             break;
             case(dice > 1):
             case(dice1 > 1):
-             roundScore += dices;
-             return document.getElementById(`current-${activePlayer}`).textContent = roundScore;  
+            roundScore += dices;
+            return document.getElementById(`current-${activePlayer}`).textContent = roundScore;  
              
             
         }
