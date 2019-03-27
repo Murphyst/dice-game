@@ -5,14 +5,26 @@ newGame();
 function btn(){
     if(gamePlaying){
         var dice = Math.floor((Math.random() * 6) + 1);
-        var diceDOM = document.getElementById('dice')
-        diceDOM.style.display = 'block';
-        diceDOM.src = `dice-${dice}.png`;
-    
-        if(dice > 1){
-        roundScore += dice;
-        document.getElementById(`current-${activePlayer}`).textContent = roundScore;    }else{
-        nextPlayer()   
+        var dice1 = Math.floor((Math.random() * 6) + 1);
+
+        document.getElementById('dice').style.display = 'block';
+        document.getElementById('dice').src = `dice-${dice}.png`;
+        document.getElementById('dice1').style.display = 'block';
+        document.getElementById('dice1').src = `dice-${dice1}.png`;
+        var dices = dice + dice1;
+        switch(true){
+            case(dices === 12): nextPlayer();
+            break;
+            case(dice === 1): nextPlayer();
+            break;
+            case(dice1 === 1): nextPlayer();  
+            break;
+            case(dice > 1):
+            case(dice1 > 1):
+             roundScore += dices;
+             return document.getElementById(`current-${activePlayer}`).textContent = roundScore;  
+             
+            
         }
     }
 }
@@ -21,6 +33,7 @@ function hld(){
     if(gamePlaying){
         document.getElementById(`score-${activePlayer}`).textContent = scores[activePlayer] += roundScore;
         document.getElementById('dice').style.display = 'none';
+        document.getElementById('dice1').style.display = 'none';
         if(scores[activePlayer] >= 100){
         document.getElementById(`name-${activePlayer}`).textContent = ('Winner!!!');       
         document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
@@ -48,6 +61,7 @@ function newGame(){
     roundScore = 0;
     activePlayer = 0; 
     document.getElementById('dice').style.display = 'none';
+    document.getElementById('dice1').style.display = 'none';
     document.getElementById('score-0').textContent = scores[0];
     document.getElementById('score-1').textContent = scores[1];
     document.getElementById('current-0').textContent = 0;
