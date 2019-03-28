@@ -37,7 +37,17 @@ function hld(){
         document.getElementById(`score-${activePlayer}`).textContent = scores[activePlayer] += roundScore;
         document.getElementById('dice').style.display = 'none';
         document.getElementById('dice1').style.display = 'none';
-        if(scores[activePlayer] >= 100){
+
+        var input = document.querySelector('.input-res').value;
+        var targetScore;
+
+        if(input){
+            targetScore = input;
+        }else{
+            targetScore = 100;
+        }
+
+        if(scores[activePlayer] >= targetScore){
         document.getElementById(`name-${activePlayer}`).textContent = ('Winner!!!');       
         document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
         document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
